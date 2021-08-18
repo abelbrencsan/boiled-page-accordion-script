@@ -1,6 +1,6 @@
 /**
- * Accordion - v1.0.0
- * Copyright 2020 Abel Brencsan
+ * Accordion - v1.1.0
+ * Copyright 2021 Abel Brencsan
  * Released under the MIT License
  */
 
@@ -151,14 +151,6 @@ Accordion.prototype = function () {
 			this.hasOpenedItem = false;
 			this.isInitialized = false;
 			if (this.destroyCallback) this.destroyCallback.call(this);
-		},
-
-		/**
-		 * Get value of "isInitialized" to be able to check accordion is initialized or not. (public)
-		 * @return boolean
-		 */
-		getIsInitialized: function() {
-			return this.isInitialized;
 		}
 	};
 
@@ -167,8 +159,7 @@ Accordion.prototype = function () {
 		open: accordion.open,
 		close: accordion.close,
 		recalcHeight: accordion.recalcHeight,
-		destroy: accordion.destroy,
-		getIsInitialized: accordion.getIsInitialized
+		destroy: accordion.destroy
 	};
 
 }();

@@ -70,7 +70,3 @@ Parameter | Type | Required | Description
 ### Destroy accordion
 
 `destroy()` - Destroy accordion. It removes all related classes and events.
-
-### Check accordion is initialized or not
-
-`getIsInitialized()` - Check accordion is initialized or not. It returns `true` when it is already initialized, `false` if not.
