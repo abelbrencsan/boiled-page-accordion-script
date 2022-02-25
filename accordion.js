@@ -1,5 +1,5 @@
 /**
- * Accordion - v1.1.0
+ * Accordion - v1.1.1
  * Copyright 2021 Abel Brencsan
  * Released under the MIT License
  */
@@ -75,7 +75,7 @@ Accordion.prototype = function () {
 			item.trigger.setAttribute('aria-expanded','true');
 			item.element.classList.add(this.isOpenedClass);
 			item.element.setAttribute('aria-hidden','false');
-			item.element.style.maxHeight = Array.prototype.reduce.call(item.element.childNodes, function(p, c) {return p + (c.offsetHeight || 0);}, 0) + 'px';
+			item.element.style.maxHeight = accordion.calcHeight.call(this, item.element);
 			item.isOpened = true;
 			this.hasOpenedItem = true;
 			if (item.openCallback) item.openCallback.call(this, item);
@@ -91,7 +91,7 @@ Accordion.prototype = function () {
 			item.trigger.setAttribute('aria-expanded','false');
 			item.element.classList.remove(this.isOpenedClass);
 			item.element.setAttribute('aria-hidden','true');
-			item.element.style.maxHeight = '0px';
+			item.element.style.maxHeight = '';
 			item.isOpened = false;
 			this.hasOpenedItem = false;
 			if (item.closeCallback) item.closeCallback.call(this, item);
@@ -102,8 +102,16 @@ Accordion.prototype = function () {
 		 */
 		recalcHeight: function() {
 			for (var i = 0; i < this.items.length; i++) {
-				if (this.items[i].isOpened) this.items[i].element.style.maxHeight = Array.prototype.reduce.call(this.items[i].element.childNodes, function(p, c) {return p + (c.offsetHeight || 0);}, 0) + 'px';
+				if (this.items[i].isOpened) this.items[i].element.style.maxHeight = accordion.calcHeight.call(this, this.items[i].element);
 			}
+		},
+
+		/**
+		 * Calculate maximum height of opened accordion item's element. (private)
+		 * @param item object
+		 */
+		calcHeight: function(item) {
+			return item.scrollHeight + 'px';
 		},
 
 		/**
