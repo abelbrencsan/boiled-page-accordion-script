@@ -1,6 +1,6 @@
 /**
  * Accordion
- * Copyright 2024 Abel Brencsan
+ * Copyright 2024 Movelapse
  * Released under the MIT License
  */
 const Accordion = function(options) {
@@ -8,18 +8,16 @@ const Accordion = function(options) {
 	'use strict';
 
 	// Test required options
-	if (options.items.constructor.name == 'Array') {
-		for (let i = 0; i < options.items.length; i++) {
-			if (typeof options.items[i].trigger !== 'object') {
-				throw 'Accordion item "trigger" option must be an `Element`';
-			}
-			if (typeof options.items[i].element !== 'object') {
-				throw 'Accordion item "element" option must be an `Element`';
-			}
-		}
+	if (!(options.items instanceof Array)) {
+		throw 'Accordion "items" must be an `Array`';
 	}
-	else {
-		throw 'Accordion "items" option must be an `Array`';
+	for (let i = 0; i < options.items.length; i++) {
+		if (!(options.items[i].trigger instanceof HTMLElement)) {
+			throw 'Accordion item "trigger" must be an `HTMLElement`';
+		}
+		if (!(options.items[i].element instanceof HTMLElement)) {
+			throw 'Accordion item "element" must be an `HTMLElement`';
+		}
 	}
 
 	// Default accordion instance options
