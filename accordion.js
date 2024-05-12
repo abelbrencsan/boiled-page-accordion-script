@@ -166,7 +166,8 @@ Accordion.prototype = function () {
 		},
 
 		/**
-		 * Destroy accordion. It removes all related classes and events.
+		 * Destroy accordion.
+		 * It removes all related classes and events.
 		 * 
 		 * @public
 		 */
