@@ -1,6 +1,6 @@
 /**
  * Accordion
- * Copyright 2024 Movelapse
+ * Copyright 2024 Abel Brencsan
  * Released under the MIT License
  */
 const Accordion = function(options) {
