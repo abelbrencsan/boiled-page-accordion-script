@@ -45,7 +45,7 @@ const Accordion = function(options) {
 Accordion.prototype = function () {
 
 	'use strict';
-	
+
 	let accordion = {
 
 		/**
@@ -75,8 +75,8 @@ Accordion.prototype = function () {
 		/**
 		 * Open given accordion item and set maximum height of its element.
 		 * 
-		 * @param {object} item
 		 * @public
+		 * @param {object} item
 		 */
 		open: function(item) {
 			if (item.isOpened) return;
@@ -93,8 +93,8 @@ Accordion.prototype = function () {
 		/**
 		 * Close given accordion item and reset maximum height of its element.
 		 * 
-		 * @param {object} item
 		 * @public
+		 * @param {object} item
 		 */
 		close: function(item) {
 			if (!item.isOpened) return;
@@ -125,8 +125,9 @@ Accordion.prototype = function () {
 		/**
 		 * Get maximum height of given element in pixels as a string.
 		 * 
-		 * @param {Element} item
 		 * @private
+		 * @param {Element} item
+		 * @return {string}
 		 */
 		calcHeight: function(elem) {
 			return elem.scrollHeight + 'px';
@@ -147,8 +148,8 @@ Accordion.prototype = function () {
 		 * Handle events.
 		 * On trigger click: Close current accordion and close all other ones.
 		 * 
-		 * @param {Event} event
 		 * @private
+		 * @param {Event} event
 		 */
 		handleEvents: function(event) {
 			if (event.type == 'click') {
