@@ -49,7 +49,7 @@ Option| Type | Default | Required | Description
 
 ### Open accordion by given item
 
-`open(item)` - Open given accordion item, set maximum height of its element.
+`open(item)` - Open given accordion item and set maximum height of its element.
 
 Parameter | Type | Required | Description
 ----------|------|----------|------------
@@ -57,7 +57,7 @@ Parameter | Type | Required | Description
 
 ### Open accordion by given item
 
-`close(item)` - Close given accordion item, reset maximum height of its element.
+`close(item)` - Close given accordion item and reset maximum height of its element.
 
 Parameter | Type | Required | Description
 ----------|------|----------|------------
@@ -65,7 +65,7 @@ Parameter | Type | Required | Description
 
 ### Recalculate maximum height of opened accordion item's element
 
-`recalcHeight()` - Recalculate maximum height of opened accordion item's element. Call this function when inner height has been possibly changed (window resize, breakpoint change, etc...).
+`recalcHeight()` - Recalculate maximum height of opened accordion item's element. Call this function when inner height has been changed (window resize, breakpoint change, etc...).
 
 ### Destroy accordion
 

@@ -1,26 +1,29 @@
 /**
- * Accordion - v1.1.1
- * Copyright 2021 Abel Brencsan
+ * Accordion
+ * Copyright 2024 Abel Brencsan
  * Released under the MIT License
  */
-
-var Accordion = function(options) {
+const Accordion = function(options) {
 
 	'use strict';
 
 	// Test required options
-	if (typeof options.items == 'object') {
-		for (var i = 0; i < options.items.length; i++) {
-			if (typeof options.items[i].trigger !== 'object') throw 'Accordion item "trigger" option must be an object';
-			if (typeof options.items[i].element !== 'object') throw 'Accordion item "element" option must be an object';
+	if (options.items.constructor.name == 'Array') {
+		for (let i = 0; i < options.items.length; i++) {
+			if (typeof options.items[i].trigger !== 'object') {
+				throw 'Accordion item "trigger" option must be an `Element`';
+			}
+			if (typeof options.items[i].element !== 'object') {
+				throw 'Accordion item "element" option must be an `Element`';
+			}
 		}
 	}
 	else {
-		throw 'Accordion "items" option must be an object';
+		throw 'Accordion "items" option must be an `Array`';
 	}
 
 	// Default accordion instance options
-	var defaults = {
+	let defaults = {
 		items: [],
 		initialIndex: null,
 		initCallback: null,
@@ -30,44 +33,50 @@ var Accordion = function(options) {
 	};
 
 	// Extend accordion instance options with defaults
-	for (var key in defaults) {
+	for (let key in defaults) {
 		this[key] = (options.hasOwnProperty(key)) ? options[key] : defaults[key];
 	}
 
 	// Accordion instance variables
 	this.hasOpenedItem = false;
 	this.isInitialized = false;
-
 };
 
 Accordion.prototype = function () {
 
 	'use strict';
-
-	var accordion = {
+	
+	let accordion = {
 
 		/**
-		 * Initialize accordion, open initial item when initial index is set. (public)
+		 * Initialize accordion.
+		 * Open initial item when initial index is set.
+		 * 
+		 * @public
 		 */
 		init: function() {
 			if (this.isInitialized) return;
 			this.handleEvent = function(event) {
 				accordion.handleEvents.call(this, event);
 			};
-			for (var i = 0; i < this.items.length; i++) {
+			for (let i = 0; i < this.items.length; i++) {
 				this.items[i].trigger.addEventListener('click', this);
 				this.items[i].trigger.setAttribute('aria-expanded','false');
 				this.items[i].element.setAttribute('aria-hidden','true');
 				this.items[i].isOpened = false;
-				if (this.initialIndex === i) accordion.open.call(this, this.items[i]);
+				if (this.initialIndex === i) {
+					accordion.open.call(this, this.items[i]);
+				}
 			}
 			this.isInitialized = true;
 			if (this.initCallback) this.initCallback.call(this);
 		},
 
 		/**
-		 * Open given accordion item, set maximum height of its element. (public)
-		 * @param item object
+		 * Open given accordion item and set maximum height of its element.
+		 * 
+		 * @param {object} item
+		 * @public
 		 */
 		open: function(item) {
 			if (item.isOpened) return;
@@ -82,8 +91,10 @@ Accordion.prototype = function () {
 		},
 
 		/**
-		 * Close given accordion item, reset maximum height of its element. (public)
-		 * @param item object
+		 * Close given accordion item and reset maximum height of its element.
+		 * 
+		 * @param {object} item
+		 * @public
 		 */
 		close: function(item) {
 			if (!item.isOpened) return;
@@ -98,41 +109,51 @@ Accordion.prototype = function () {
 		},
 
 		/**
-		 * Recalculate maximum height of opened accordion item's element. Call this function when inner height has been possibly changed (window resize, breakpoint change, etc...). (public)
+		 * Recalculate maximum height of opened accordion item's element.
+		 * Call this function when inner height has been changed.
+		 * 
+		 * @public
 		 */
 		recalcHeight: function() {
-			for (var i = 0; i < this.items.length; i++) {
-				if (this.items[i].isOpened) this.items[i].element.style.maxHeight = accordion.calcHeight.call(this, this.items[i].element);
+			for (let i = 0; i < this.items.length; i++) {
+				if (this.items[i].isOpened) {
+					this.items[i].element.style.maxHeight = accordion.calcHeight.call(this, this.items[i].element);
+				}
 			}
 		},
 
 		/**
-		 * Calculate maximum height of opened accordion item's element. (private)
-		 * @param item object
+		 * Get maximum height of given element in pixels as a string.
+		 * 
+		 * @param {Element} item
+		 * @private
 		 */
-		calcHeight: function(item) {
-			return item.scrollHeight + 'px';
+		calcHeight: function(elem) {
+			return elem.scrollHeight + 'px';
 		},
 
 		/**
-		 * Close all accordion items. (private)
+		 * Close all accordion items.
+		 * 
+		 * @private
 		 */
 		closeAll: function() {
-			for (var i = 0; i < this.items.length; i++) {
+			for (let i = 0; i < this.items.length; i++) {
 				accordion.close.call(this, this.items[i]);
 			}
 		},
 
 		/**
-		 * Handle events. (private)
-		 * On trigger click: close accordion item if it is opened; otherwise open it and close all other accordion items.
-		 * @param event object
+		 * Handle events.
+		 * On trigger click: Close current accordion and close all other ones.
+		 * 
+		 * @param {Event} event
+		 * @private
 		 */
 		handleEvents: function(event) {
 			if (event.type == 'click') {
-				for (var i = 0; i < this.items.length; i++) {
+				for (let i = 0; i < this.items.length; i++) {
 					if (this.items[i].trigger.contains(event.target)) {
-						event.preventDefault();
 						if (this.items[i].isOpened) {
 							accordion.close.call(this, this.items[i]);
 						}
@@ -146,12 +167,14 @@ Accordion.prototype = function () {
 		},
 
 		/**
-		 * Destroy accordion. It removes all related classes and events. (public)
+		 * Destroy accordion. It removes all related classes and events.
+		 * 
+		 * @public
 		 */
 		destroy: function() {
 			if (!this.isInitialized) return;
 			accordion.closeAll.call(this);
-			for (var i = 0; i < this.items.length; i++) {
+			for (let i = 0; i < this.items.length; i++) {
 				this.items[i].trigger.removeEventListener('click', this);
 				this.items[i].trigger.removeAttribute('aria-expanded');
 				this.items[i].element.removeAttribute('aria-hidden');
@@ -169,5 +192,5 @@ Accordion.prototype = function () {
 		recalcHeight: accordion.recalcHeight,
 		destroy: accordion.destroy
 	};
-
+	
 }();
