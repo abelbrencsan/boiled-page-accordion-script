@@ -124,7 +124,7 @@ Accordion.prototype = function () {
 		 * Get maximum height of given element in pixels as a string.
 		 * 
 		 * @private
-		 * @param {Element} item
+		 * @param {Element} elem
 		 * @return {string}
 		 */
 		calcHeight: function(elem) {
