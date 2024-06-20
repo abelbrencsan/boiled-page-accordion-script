@@ -106,7 +106,7 @@ Accordion.prototype = function () {
 		},
 
 		/**
-		 * Recalculate maximum height of opened accordion item's element.
+		 * Recalculate maximum height of opened accordion item.
 		 * 
 		 * @public
 		 */
