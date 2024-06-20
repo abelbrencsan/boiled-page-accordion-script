@@ -48,7 +48,6 @@ Accordion.prototype = function () {
 
 		/**
 		 * Initialize accordion.
-		 * Open initial item when initial index is set.
 		 * 
 		 * @public
 		 */
@@ -71,7 +70,7 @@ Accordion.prototype = function () {
 		},
 
 		/**
-		 * Open given accordion item and set maximum height of its element.
+		 * Open given accordion item.
 		 * 
 		 * @public
 		 * @param {object} item
@@ -89,7 +88,7 @@ Accordion.prototype = function () {
 		},
 
 		/**
-		 * Close given accordion item and reset maximum height of its element.
+		 * Close given accordion item.
 		 * 
 		 * @public
 		 * @param {object} item
@@ -108,7 +107,6 @@ Accordion.prototype = function () {
 
 		/**
 		 * Recalculate maximum height of opened accordion item's element.
-		 * Call this function when inner height has been changed.
 		 * 
 		 * @public
 		 */
@@ -144,7 +142,7 @@ Accordion.prototype = function () {
 
 		/**
 		 * Handle events.
-		 * On trigger click: Close current accordion and close all other ones.
+		 * On trigger click: Open current accordion and close all other ones.
 		 * 
 		 * @private
 		 * @param {Event} event
@@ -167,7 +165,6 @@ Accordion.prototype = function () {
 
 		/**
 		 * Destroy accordion.
-		 * It removes all related classes and events.
 		 * 
 		 * @public
 		 */
